@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/vannleonheart/goutil"
 )
 
 func New(config *Config) *Client {
@@ -19,7 +20,7 @@ func (c *Client) GetBalance() (*Balance, error) {
 		"Authorization": fmt.Sprintf("Bearer %s", c.Config.Token),
 	}
 
-	if err := sendHttpGet(url, nil, &headers, &resp); err != nil {
+	if _, err := goutil.SendHttpGet(url, nil, &headers, &resp); err != nil {
 		return nil, err
 	}
 
@@ -58,7 +59,7 @@ func (c *Client) CreateDisbursement(data CreateDisbursementRequest) (*Disburseme
 		"Authorization": fmt.Sprintf("Bearer %s", c.Config.Token),
 	}
 
-	if err := sendHttpPost(url, data, &headers, &resp); err != nil {
+	if _, err := goutil.SendHttpPost(url, data, &headers, &resp); err != nil {
 		return nil, err
 	}
 
@@ -103,7 +104,7 @@ func (c *Client) InquiryDisbursementByUuid(uuid string) (*Disbursement, error) {
 		"Authorization": fmt.Sprintf("Bearer %s", c.Config.Token),
 	}
 
-	if err := sendHttpGet(url, nil, &headers, &resp); err != nil {
+	if _, err := goutil.SendHttpGet(url, nil, &headers, &resp); err != nil {
 		return nil, err
 	}
 
@@ -142,7 +143,7 @@ func (c *Client) InquiryDisbursementByMerchantTrx(merchantTrx string) (*Disburse
 		"Authorization": fmt.Sprintf("Bearer %s", c.Config.Token),
 	}
 
-	if err := sendHttpGet(url, nil, &headers, &resp); err != nil {
+	if _, err := goutil.SendHttpGet(url, nil, &headers, &resp); err != nil {
 		return nil, err
 	}
 
